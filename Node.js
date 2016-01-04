@@ -7,6 +7,7 @@ var Node = function(text, nodeIndex){
     this.text = text
     this.lex = undefined
     this.type = undefined
+    this.POS = undefined
     this.instanceType = "Node"
     this.__attributes = {}
     this.errors = []
@@ -38,6 +39,7 @@ Node.prototype.updateAttributes = function(token, tokenType, fsDict, fsList){
     this.fsList = fsList
     this.lex = token
     this.type = tokenType
+    this.POS = tokenType
     var attribute;
 
     for(_index in fsDict){

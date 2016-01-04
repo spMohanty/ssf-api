@@ -10,13 +10,13 @@ var ChunkNode = function(header){
     this.parentRelation = 'root'
     this.name = undefined
     this.type = undefined
+    this.POS = undefined
     this.instanceType = "ChunkNode"    
     this.head = undefined
     this.isParent = false
     this.errors = []
     this.upper = undefined
     this.updateDrel()
-    this.type = undefined
     this.fsList = undefined
 }
 
@@ -29,6 +29,7 @@ ChunkNode.prototype.analyzeChunk = function(){
 
     this.fsList = chunkFSList
     this.type = chunkType
+    this.POS = chunkType
     this.updateAttributes(chunkFeatDict)
     
     //THIS NEEDS WORK !!
