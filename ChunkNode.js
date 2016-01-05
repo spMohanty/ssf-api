@@ -11,7 +11,7 @@ var ChunkNode = function(header){
     this.name = undefined
     this.type = undefined
     this.POS = undefined
-    this.instanceType = "ChunkNode"    
+    this.instanceType = "ChunkNode"
     this.head = undefined
     this.isParent = false
     this.errors = []
@@ -31,10 +31,10 @@ ChunkNode.prototype.analyzeChunk = function(){
     this.type = chunkType
     this.POS = chunkType
     this.updateAttributes(chunkFeatDict)
-    
+
     //THIS NEEDS WORK !!
-    // this.text = this.text.split("\n").join("\n"); 
-    
+    // this.text = this.text.split("\n").join("\n");
+
     this.text = this.text.join("\n")
     //this.text = '\n'.join([line for line in this.text])
 }
@@ -42,7 +42,7 @@ ChunkNode.prototype.analyzeChunk = function(){
 
 ChunkNode.prototype.updateAttributes = function(fsDict){
     for(attribute in fsDict){
-        this.__attributes[attribute] = fsDict[attribute]        
+        this.__attributes[attribute] = fsDict[attribute]
     }
     this.assignName()
     this.updateDrel()
@@ -50,26 +50,26 @@ ChunkNode.prototype.updateAttributes = function(fsDict){
 }
 
 ChunkNode.prototype.assignName = function(){
-    if('name' in this.__attributes) 
+    if('name' in this.__attributes)
         this.name = this.getAttribute('name')
     else
-        this.errors.push('No name for this chunk Node')    
+        this.errors.push('No name for this chunk Node')
 }
 
-    
+
 ChunkNode.prototype.updateDrel = function(){
     if('drel' in this.__attributes){
         drelList = this.getAttribute('drel').split(':')
         if(drelList.length == 2){
             this.parent = drelList[1]
-            this.parentRelation = this.getAttribute('drel').split(':')[0]              
+            this.parentRelation = this.getAttribute('drel').split(':')[0]
         }
     }
     else if( 'dmrel' in this.__attributes){
         drelList = this.getAttribute('dmrel').split(':')
         if(drelList.length == 2){
             this.parent = drelList[1]
-            this.parentRelation = this.getAttribute('dmrel').split(':')[0]    
+            this.parentRelation = this.getAttribute('dmrel').split(':')[0]
         }
     }
 }
@@ -82,15 +82,15 @@ ChunkNode.prototype.printValue = function(){
         node = this.nodeList[_index];
         returnString.push(node.printValue())
     }
-    //THIS NEEDS WORK 
+    //THIS NEEDS WORK
     return returnString.join(' ')
-    // return ' '.join(x for x in returnString) 
+    // return ' '.join(x for x in returnString)
 }
 
 
 ChunkNode.prototype.printSSFValue = function(prefix, allFeat){
     returnStringList = []
-    returnValue = [prefix , '((' , this.type]
+    returnValue = [prefix , '((' , this.POS]
     if(allFeat == false){
         fs = ['<fs']
         for(key in this.__attributes){
@@ -115,9 +115,9 @@ ChunkNode.prototype.printSSFValue = function(prefix, allFeat){
         nodePosn += 1
         if(node.instanceType == "ChunkNode"){
             returnStringList = returnStringList.concat(node.printSSFValue(prefix + '.' + nodePosn+"", allFeat))
-        }   
+        }
         else{
-            returnStringList.push(node.printSSFValue(prefix + '.' + nodePosn, allFeat))            
+            returnStringList.push(node.printSSFValue(prefix + '.' + nodePosn, allFeat))
         }
     }
     returnStringList.push('\t' + '))')
@@ -133,11 +133,11 @@ ChunkNode.prototype.getAttribute = function(key){
 
 
 ChunkNode.prototype.addAttribute = function(key,value){
-    this.__attributes[key] = value    
+    this.__attributes[key] = value
 }
 
 ChunkNode.prototype.deleteAttribute = function(key){
-    delete this.__attributes[key]    
+    delete this.__attributes[key]
 }
 
 

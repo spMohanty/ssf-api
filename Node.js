@@ -31,7 +31,7 @@ Node.prototype.analyzeNode = function(text){
     attributeUpdateStatus = this.updateAttributes(token, tokenType, fsDict, fsList)
     if(attributeUpdateStatus == 0){
         this.errors.push("Can't update attributes for node")
-        this.probSent = true    
+        this.probSent = true
     }
 }
 
@@ -52,7 +52,7 @@ Node.prototype.assignName = function(){
     if('name' in this.__attributes)
         this.name = this.getAttribute('name')
     else
-        this.errors.push('No name for this token Node')    
+        this.errors.push('No name for this token Node')
 }
 
 
@@ -61,22 +61,22 @@ Node.prototype.assignNames = function(){
     this.__attributes['name'] = this.index+"";
     this.assignName()
 }
-        
+
 Node.prototype.printValue = function(){
     return this.lex;
 }
 
 Node.prototype.printSSFValue = function(prefix, allFeat){
-    returnValue = [prefix , this.printValue() , this.type]
-    
+    returnValue = [prefix , this.printValue() , this.POS]
+
     if(allFeat == undefined){
         fs = ['<fs']
         for(key in this.__attributes){
-            fs.push(key + "='" + this.getAttribute(key) + "'")            
+            fs.push(key + "='" + this.getAttribute(key) + "'")
         }
         delim = ' '
         fs[fs.length-1] = fs[fs.length-1] + '>'
-    } 
+    }
     else{
         fs = this.fsList
         delim = '|'
@@ -85,7 +85,7 @@ Node.prototype.printSSFValue = function(prefix, allFeat){
     var s = ""
     s += returnValue.join("\t")
     s += "\t"
-    s += fs.join(delim)    
+    s += fs.join(delim)
     return s;
 }
 
@@ -93,7 +93,7 @@ Node.prototype.getAttribute = function(key){
     if(key in this.__attributes)
         return this.__attributes[key]
     else
-        return undefined 
+        return undefined
 }
 
 Node.prototype.getAttributeList = function(){
@@ -105,7 +105,7 @@ Node.prototype.addAttribute = function(key,value){
 }
 
 Node.prototype.deleteAttribute = function(key){
-    delete this.__attributes[key]  
+    delete this.__attributes[key]
 }
 
 
