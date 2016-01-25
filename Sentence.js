@@ -39,7 +39,7 @@ var  Sentence = function(sentence, ignoreErrors, nesting, dummySentence){
         this.footer = sentence[0][4]
         this.name = sentence[0][2]
         this.text = sentence[0][3]
-        this.analyzeSentence()        
+        this.analyzeSentence()
     }
 }
 
@@ -66,8 +66,8 @@ var  Sentence = function(sentence, ignoreErrors, nesting, dummySentence){
             continue
         else if(stripLine[0]=="<" && ignoreErrors == false){
                 this.errors.push('Encountered a line starting with "<"');
-                this.probSent = true            
-        }            
+                this.probSent = true
+        }
         else{
             splitLine = stripLine.split(/\s+/).filter(Boolean)
             //Chunk Starts
@@ -78,7 +78,7 @@ var  Sentence = function(sentence, ignoreErrors, nesting, dummySentence){
                 currentChunkNode.upper.nodeList.push(currentChunkNode)
 
                 if(currentChunkNode.upper.instanceType != 'Sentence'){
-                    currentChunkNode.upper.text.push(line)                    
+                    currentChunkNode.upper.text.push(line)
                 }
                 contextList.push(currentChunkNode)
             }
@@ -88,7 +88,7 @@ var  Sentence = function(sentence, ignoreErrors, nesting, dummySentence){
                 contextList.pop(-1)
 
                 if(contextList[contextList.length - 1].instanceType != "Sentence"){
-                    currentChunkNode = contextList[contextList.length-1]                     
+                    currentChunkNode = contextList[contextList.length-1]
                 }
             }
             else{
@@ -101,8 +101,8 @@ var  Sentence = function(sentence, ignoreErrors, nesting, dummySentence){
         }
     }
  }
-    
-        
+
+
 Sentence.prototype.addEdge = function(parent , child){
     //THIS NEEDS WORK !!
     if(parent in this.edges){
@@ -113,10 +113,10 @@ Sentence.prototype.addEdge = function(parent , child){
         this.edges[parent] = [child]
     }
     // if parent in this.edges.iterkeys() :
-    //     if child not in this.edges[parent] : 
+    //     if child not in this.edges[parent] :
     //         this.edges[parent].append(child)
     // else :
-    //     this.edges[parent] = [child]    
+    //     this.edges[parent] = [child]
 }
 
 
@@ -136,8 +136,8 @@ Sentence.prototype.printSSFValue = function(allFeat){
     }
 
     returnStringList = []
-    returnStringList.push("<Sentence id='" + this.name + "'>")
-    
+    returnStringList.push("<Sentence id=\"" + this.name + "\">")
+
     if(this.nodeList.length != 0){
         var nodeList = this.nodeList
         var nodePosn = 0
@@ -146,7 +146,7 @@ Sentence.prototype.printSSFValue = function(allFeat){
         for(_index in nodeList){
             node = nodeList[_index]
             nodePosn += 1
-            returnStringList = returnStringList.concat([node.printSSFValue(nodePosn+"", allFeat)])   
+            returnStringList = returnStringList.concat([node.printSSFValue(nodePosn+"", allFeat)])
         }
     }
     returnStringList.push( '</Sentence>\n')
@@ -154,7 +154,7 @@ Sentence.prototype.printSSFValue = function(allFeat){
     return [].concat.apply([], returnStringList).join("\n")
 }
 
-        
+
 Sentence.prototype.populateNodes = function(naming){
     if(naming == undefined){
         naming = 'strict';
@@ -162,7 +162,7 @@ Sentence.prototype.populateNodes = function(naming){
 
     if(naming == "strict"){
         for(_index in this.nodeList){
-            var nodeElement = this.nodeList[_index];    
+            var nodeElement = this.nodeList[_index];
             if(nodeElement == undefined){
                 this.nodes[nodeElement.name] = nodeElement
             }else{
@@ -173,7 +173,7 @@ Sentence.prototype.populateNodes = function(naming){
     }
     return 1;
 }
-    
+
 Sentence.prototype.populateEdges = function(){
     for(_index in this.nodeList){
         var node = this.nodeList[_index];
